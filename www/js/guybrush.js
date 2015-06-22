@@ -41,8 +41,8 @@ function start(event) {
       console.log('duplicate identifier start');
     }
   }
-  return checkForPawn();
 }
+
 function moving(event) {
   event.preventDefault();
   var touchs = event.originalEvent.changedTouches;
@@ -54,8 +54,9 @@ function moving(event) {
       console.log('unknown identifier moving ' + id);
     }
   }
-  return checkForPawn();
-}function end(event) {
+}
+
+function end(event) {
   event.preventDefault();
   var id;
   var touchs = event.originalEvent.changedTouches;
@@ -67,7 +68,6 @@ function moving(event) {
       console.log('unknown identifier end ' + id);
     }
   }
-  return checkForPawn();
 }
 function checkForPawn() {
   var ids = Object.keys(contacts);
@@ -84,7 +84,7 @@ function has3side(d) {
 var contacts = {};
 
 module.exports = function Guybrush(el) {
-  this.stream = H();
+  this.stream = H().map(checkForPawn);
   var s1 = H('touchstart', el).map(start);
   var s2 = H('touchmove', el).map(moving);
   var s3 = H('touchend', el).map(end);
