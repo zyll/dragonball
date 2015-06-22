@@ -37,7 +37,6 @@ function Scene() {
   this.el[0].width  = $(window).width();
   $('body').append(this.el);
   this.ctx = this.el[0].getContext('2d');
-  this.ctx.fillStyle = "black";
 };
 
 Scene.prototype.clear = function() {
@@ -47,19 +46,28 @@ Scene.prototype.clear = function() {
 Scene.prototype.clear = function() {
   this.ctx.clearRect(0, 0, this.el[0].width, this.el[0].height);
 }
-Scene.prototype.draw = function(tup) {
+Scene.prototype.draw = function(pawns) {
   this.clear();
-  if(tup.length === 0) return;
-  this.ctx.beginPath();
-  var G = barycentre(tup);
-  var A = faraway(tup[0], G);
-  var B = faraway(tup[1], G);
-  var C = faraway(tup[2], G);
-  this.ctx.moveTo(A.x, A.y);
-  this.ctx.lineTo(B.x, B.y);
-  this.ctx.lineTo(C.x, C.y);
-  this.ctx.fill();
+  if(pawns.length === 0) return;
+  var tup;
+  for(var i = 0; i < pawns.length; i++) {
+    tup = pawns[i];
+    var distance = tup[0].distance + tup[1].distance + tup[2].distance;
+    oldMax = Math.max(oldMax, distance);
+    oldMin = Math.min(oldMin, distance);
+    this.ctx.fillStyle = distance > 250 ? "black" : "red";
+    this.ctx.beginPath();
+    var G = barycentre(tup);
+    var A = faraway(tup[0], G);
+    var B = faraway(tup[1], G);
+    var C = faraway(tup[2], G);
+    this.ctx.moveTo(A.x, A.y);
+    this.ctx.lineTo(B.x, B.y);
+    this.ctx.lineTo(C.x, C.y);
+    this.ctx.fill();
+  }
 };
+window.oldMax = 0, window.oldMin = Infinity;
 function barycentre(tup) {
   return {
     x: (tup[0].x + tup[1].x + tup[2].x) / 3,
