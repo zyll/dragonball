@@ -12,7 +12,9 @@
   "license": "ISC",
   "devDependencies": {
     "browserify": "^10.2.4",
+    "express": "^4.13.0",
     "highland": "^2.5.1",
-    "jquery": "^2.1.4"
+    "jquery": "^2.1.4",
+    "serve-index": "^1.7.0"
   }
 }

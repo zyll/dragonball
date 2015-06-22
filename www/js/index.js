@@ -23,7 +23,7 @@ var $ = require('jquery');
 var app = {
   // Application Constructor
   initialize: function() {
-    document.addEventListener('deviceready', this.onDeviceReady, false);
+    $(document).ready(this.onDeviceReady.bind(this));
   },
   onDeviceReady: function() {
     var guybrush = new Guybrush($('body'));
