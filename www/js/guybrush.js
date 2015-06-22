@@ -31,51 +31,32 @@ function distance(a, b) {
 
 function start(event) {
   event.preventDefault();
-  var id;
-  var touchs = event.originalEvent.changedTouches;
-  for(var i = 0; i < touchs.length; i++) {
-    id = touchs[i].identifier;
-    if(!contacts.hasOwnProperty(id)) {
-      contacts[id] = normalize(touchs[i]);
-    } else {
-      console.log('duplicate identifier start');
-    }
-  }
+  return [].map.call(event.originalEvent.changedTouches, function(touch) {;
+    return contacts[touch.identifier] = normalize(touch);
+  });
 }
 
 function moving(event) {
   event.preventDefault();
-  var touchs = event.originalEvent.changedTouches;
-  for(var i = 0; i < touchs.length; i++) {
-    id = touchs[i].identifier;
-    if(contacts.hasOwnProperty(id)) {
-      contacts[id] = normalize(touchs[i]);
-    } else {
-      console.log('unknown identifier moving ' + id);
-    }
-  }
+  return [].map.call(event.originalEvent.changedTouches, function(touch) {;
+    return contacts[touch.identifier] = normalize(touch);
+  });
 }
 
 function end(event) {
   event.preventDefault();
-  var id;
-  var touchs = event.originalEvent.changedTouches;
-  for(var i = 0; i < touchs.length; i++) {
-    id = touchs[i].identifier;
-    if(contacts.hasOwnProperty(id)) {
-      delete contacts[id];
-    } else {
-      console.log('unknown identifier end ' + id);
-    }
-  }
+  return [].map.call(event.originalEvent.changedTouches, function(touch) {;
+    delete contacts[touch.identifier]
+    return touch.identifier;
+  });
 }
+
 function checkForPawn() {
   var ids = Object.keys(contacts);
   if(ids.length < 3) return [];
   return ids.slice(0, 3).map(function(id) {return contacts[id];});
   // return distanceTupplet(tup);
 }
-
 
 
 function has3side(d) {
