@@ -16,6 +16,7 @@ function distance(a, b) {
 
 function start(event) {
   event.preventDefault();
+  console.log('me');
   return [].map.call(event.originalEvent.changedTouches, function(touch) {;
     return contacts[touch.identifier] = normalize(touch);
   });
@@ -70,8 +71,8 @@ function checkForPawn(changed) {
 var contacts = {};
 var pawns = [];
 
-module.exports = function Guybrush(el) {
-  this.stream = H([
+module.exports = function guybrush(el) {
+  return H([
     H('touchstart', el).map(start),
     H('touchmove', el).map(moving),
     H('touchend', el).map(end)

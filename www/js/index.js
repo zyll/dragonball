@@ -28,7 +28,7 @@ var app = {
   onDeviceReady: function() {
     var guybrush = new Guybrush($('body'));
     var scene = new Scene();
-    guybrush.stream.each(scene.draw.bind(scene));
+    guybrush.each(scene.draw.bind(scene));
   }
 };
 function Scene() {
