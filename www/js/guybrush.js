@@ -71,11 +71,9 @@ var contacts = {};
 var pawns = [];
 
 module.exports = function Guybrush(el) {
-  this.stream = H().map(checkForPawn);
-  var s1 = H('touchstart', el).map(start);
-  var s2 = H('touchmove', el).map(moving);
-  var s3 = H('touchend', el).map(end);
-  s1.pipe(this.stream);
-  s2.pipe(this.stream);
-  s3.pipe(this.stream);
+  this.stream = H([
+    H('touchstart', el).map(start),
+    H('touchmove', el).map(moving),
+    H('touchend', el).map(end)
+  ]).merge().map(checkForPawn);
 };
